@@ -22,13 +22,30 @@
 
 module system(
     input clk,
-    input [15:0] sw,
     input [1:0] select,
-    input reset
+    input reset,
+    input start,
+    input [15:0] sw,
+    output [3:0] an,
+    output [6:0] sseg
     );
+    
+    
     
     wire slowClk;
     clkDiv sc (.clk(clk), .reset(reset), .clk_out(slowClk));
+    
+    //have one hlsm for slow clock
+    
+    
+    //have on hlsm for fast clock
+    reg [15:0] stored;
+    reg [3:0] c0, c1, c2, c3;
+    state_machine(.clk(slowClk), .select(select), .reset(reset), .start(start), .ld(sw), .LedResult(stored));
+    
+    display ds (.clk(clk), .c0(c0), .c1(c1), .c2(c2), .c3(c3), .an(an), .sseg(sseg));
+    
+    
     
    
     
