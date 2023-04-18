@@ -26,9 +26,12 @@ module state_machine(
     input [1:0] select,
     input reset,
     input start,
-    input [15:0] ld,
+    input [7:0] ld,
     output [3:0] c0, c1, c2, c3
     );
+    
+    reg [7:0] state;
+    reg [7:0] next_state;
     
     
     always @(posedge clk or posedge reset) begin

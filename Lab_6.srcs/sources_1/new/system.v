@@ -25,7 +25,7 @@ module system(
     input [1:0] select,
     input reset,
     input start,
-    input [15:0] sw,
+    input [7:0] sw,
     output [3:0] an,
     output [6:0] sseg
     );
