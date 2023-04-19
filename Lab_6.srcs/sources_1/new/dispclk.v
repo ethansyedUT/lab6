@@ -47,8 +47,8 @@ module dispclk(
     input reset,
     output clk_out
     );
-    reg[10:0] COUNT;
-    assign clk_out = COUNT[10];
+    reg[14:0] COUNT;
+    assign clk_out = COUNT[14];
 
 //    Simulation
 //    reg[1:0] COUNT;

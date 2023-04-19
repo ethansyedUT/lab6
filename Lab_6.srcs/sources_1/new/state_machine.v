@@ -42,20 +42,28 @@ module state_machine(
     rc2 = 0;
     rc3 = 0;
     tc = 0;
-    state = 0;
+    state = 5'b00000;
     next_state = 0;
     end
-    always @ (*) begin
+    always @ (start, c0, c1, c2, c3, state) begin
         //init state
-        if(state == 5'b00000 && start)begin
-            if(select == 2'b00)
-                next_state = 5'b00001;
-            else if(select == 2'b01)
-                next_state = 5'b00010;       
-            else if(select == 2'b10)
-                next_state = 5'b00011;
-            else if(select == 2'b11)
-                 next_state = 5'b00100;
+        if(state == 5'b00000)begin
+            tc = 0;
+            rc0 = 0;
+            rc1 = 0;
+            rc2 = 0;
+            rc3 = 0;
+            if(start)begin
+                if(select == 2'b00)
+                    next_state = 5'b00001;
+                else if(select == 2'b01)
+                    next_state = 5'b00010;       
+                else if(select == 2'b10)
+                    next_state = 5'b00011;
+                else if(select == 2'b11)
+                     next_state = 5'b00100;
+            end else
+                next_state = 5'b00000;
         end
              
         //UFM state
@@ -86,6 +94,7 @@ module state_machine(
             
          //DFM state
          else if(state == 5'b00011)begin
+            tc = 0;
             rc3 = 9;
             rc2 = 9;
             rc1 = 9;
@@ -112,10 +121,20 @@ module state_machine(
          else if(state == 5'b00111)begin
             if(start)
                 next_state = 5'b10010;
-            else if((select == 0 || select == 1) && !tc && !reset)
+            else if(select == 0 && reset)
+                next_state = 5'b00001;
+            else if (select == 1 && reset)
+                next_state = 5'b00010;
+            else if (select == 2 && reset)
+                next_state = 5'b00011;
+            else if (select == 3 && reset)
+                next_state =  5'b00100;
+            else if((select == 0 || select == 1) && !tc && !reset) //increment
                 next_state = 5'b01001;
-            else if((select == 2 || select == 3) && !tc && !reset)
+            else if((select == 2 || select == 3) && !tc && !reset) //decrement
                 next_state = 5'b01110;
+            else
+                next_state = 5'b00111;
          end 
          
          //T-count
@@ -159,6 +178,8 @@ module state_machine(
          //R0 c3
          else if(state == 5'b01100)begin
             rc3 = rc3 + 1;
+            if(rc3 > 9)
+                rc3 = 9;
             next_state = 5'b00111;
          end 
          
@@ -222,16 +243,24 @@ module state_machine(
             else
                 next_state = 5'b10011;
          end 
-            
-        
+         c0 = rc0;
+         c1 = rc1;
+         c2 = rc2;
+         c3 = rc3;
     end
     
     
     always @(posedge clk) begin
-        c0 <= rc0;
-        c1 <= rc1;
-        c2 <= rc2;
-        c3 <= rc3;
+//        c0 <= rc0;
+//        c1 <= rc1;
+//        c2 <= rc2;
+//        c3 <= rc3;
+//        if(c3 > 9)begin
+//            c3 <= 9;
+//            c2 <= 9;
+//            c1 <= 9;
+//            c0 <= 9;
+//        end
         if(reset && select == 2'b00)
             state <= 5'b00011;
         else if(reset && select == 2'b01)

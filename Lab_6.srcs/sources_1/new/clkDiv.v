@@ -51,8 +51,8 @@ module clkDiv(
     //assign clk_out = COUNT[19] && COUNT[18] && COUNT[17] && COUNT[16] && COUNT[14] && COUNT[9] && COUNT[6];
 
 //    Simulation
-    reg[19:0] COUNT;
-    assign clk_out = COUNT[19];
+    reg[23:0] COUNT;
+    assign clk_out = COUNT[23];
     
     initial COUNT = 0;
     always @ (posedge clk) begin

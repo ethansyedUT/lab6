@@ -28,7 +28,7 @@ module tb_system;
     reg [7:0] ld;
     wire [3:0] an;
     wire [6:0] sseg;
-    wire [3:0] d1, d2, d3 ,d4;
+//    wire [3:0] d1, d2, d3 ,d4;
     
     system u1(
         .clk(clk),
@@ -37,11 +37,11 @@ module tb_system;
         .start(start),
         .ld(ld),
         .an(an),
-        .sseg(sseg),
-        .debugc(d1),
-        .debugc1(d2),
-        .debugc2(d3),
-        .debugc3(d4)
+        .sseg(sseg)
+//        .debugc(d1),
+//        .debugc1(d2),
+//        .debugc2(d3),
+//        .debugc3(d4)
     );
     
     initial

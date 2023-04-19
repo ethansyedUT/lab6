@@ -27,8 +27,8 @@ module system(
     input start,
     input [7:0] ld,
     output [3:0] an,
-    output [6:0] sseg,
-    output [3:0] debugc, debugc1, debugc2, debugc3
+    output [6:0] sseg
+//    output [3:0] debugc, debugc1, debugc2, debugc3
     );
     
     
