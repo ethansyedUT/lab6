@@ -47,16 +47,16 @@ module clkDiv(
     input reset,
     output clk_out
     );
-    reg[19:0] COUNT;
-    assign clk_out = COUNT[19] && COUNT[18] && COUNT[17] && COUNT[16] && COUNT[14] && COUNT[9] && COUNT[6];
+   // reg[19:0] COUNT;
+    //assign clk_out = COUNT[19] && COUNT[18] && COUNT[17] && COUNT[16] && COUNT[14] && COUNT[9] && COUNT[6];
 
 //    Simulation
-//    reg[1:0] COUNT;
-//    assign clk_out = COUNT[1];
+    reg[19:0] COUNT;
+    assign clk_out = COUNT[19];
     
     initial COUNT = 0;
     always @ (posedge clk) begin
-        if(reset || (COUNT == COUNT[19] && COUNT[18] && COUNT[17] && COUNT[16] && COUNT[14] && COUNT[9] && COUNT[6]))
+        if(reset)
             COUNT = 0;
         else
             COUNT = COUNT + 1;

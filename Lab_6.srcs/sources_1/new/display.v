@@ -22,7 +22,8 @@
 
 module display(
     input clk,
-    input [3:0] c0, c1, c2, c3,
+//    input [3:0] c0, c1, c2, c3,
+    input [6:0] in0, in1, in2, in3,
     output reg [3:0] an,
     output reg [6:0] sseg
     );
@@ -33,12 +34,12 @@ module display(
     
     //.x is binary data
     //.r is seven segment display info
-    wire [6:0] in0, in1, in2, in3;
+//    wire [6:0] in0, in1, in2, in3;
     
-    hexto7segment seg0 (.x(c0), .r(in0));
-    hexto7segment seg1 (.x(c1), .r(in1));
-    hexto7segment seg2 (.x(c2), .r(in2));
-    hexto7segment seg3 (.x(c3), .r(in3));
+//    hexto7segment seg0 (.x(c0), .r(in0));
+//    hexto7segment seg1 (.x(c1), .r(in1));
+//    hexto7segment seg2 (.x(c2), .r(in2));
+//    hexto7segment seg3 (.x(c3), .r(in3));
     
     reg [1:0] state;
     reg [1:0] next_state;
@@ -69,7 +70,7 @@ module display(
             2'b10: an = 4'b1011;
             2'b11: an = 4'b0111;
             default: begin
-                sseg = 4'b1111;
+                an = 4'b1111;
             end
         endcase
     end
