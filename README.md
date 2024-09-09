@@ -1,4 +1,4 @@
-# Lab6
+# Final Digital Logic Design Lab
 
 ## About
 This was the final project for an undergraduate Digital Logic Design course at UT Austin <br>
